@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import r2_score, mean_squared_error
 import pickle
+import gzip
 
 # --- Load Dataset ---
 data = pd.read_csv("traffic volume.csv")
@@ -68,4 +69,6 @@ y_pred = model.predict(x_test)
 print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
 
 # --- Save Model ---
-pickle.dump(model, open('model.pkl', 'wb'))
+with gzip.open('model.pkl.gz', 'wb') as f:
+    pickle.dump(model, f)
+print("Model saved successfully as model.pkl.gz")
